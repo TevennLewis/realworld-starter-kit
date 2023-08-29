@@ -44,7 +44,7 @@ onMounted(async () => {
           >
             <div class="article-meta">
               <a href="/profile/eric-simons"
-                ><img src="http://i.imgur.com/Qr71crq.jpg"
+                ><img :src="article.author.image"
               /></a>
 
               <div class="info">

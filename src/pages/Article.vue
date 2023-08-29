@@ -7,6 +7,7 @@ const route = useRoute();
 const articlesApi = new ArticlesApi();
 const routeSlug = ref();
 const article = ref();
+const comments = ref();
 
 function getUrlString() {
   const parts = route.fullPath.split("/");
@@ -16,7 +17,8 @@ function getUrlString() {
 onMounted(async () => {
   getUrlString();
   article.value = await articlesApi.fetchArticle(routeSlug.value);
-  console.log(article.value.article);
+  comments.value = await articlesApi.fetchArticleComments(routeSlug.value);
+  console.log(comments.value);
 });
 </script>
 <template>
