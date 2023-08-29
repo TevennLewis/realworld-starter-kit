@@ -1,13 +1,17 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import ArticlesApi from "../api/articles.ts";
+import TagsApi from "../api/tags.ts";
 const articles = ref();
+const tags = ref();
 
-const api = new ArticlesApi();
+const articlesApi = new ArticlesApi();
+const tagsApi = new TagsApi();
 
 onMounted(async () => {
-  articles.value = await api.fetchArticles();
-  console.log(articles.value);
+  articles.value = await articlesApi.fetchArticles();
+  tags.value = await tagsApi.fetchTags();
+  console.log(tags.value.tags);
 });
 </script>
 <template>
@@ -69,9 +73,6 @@ onMounted(async () => {
                 >
                   {{ tag }}
                 </li>
-                <li class="tag-default tag-pill tag-outline">
-                  implementations
-                </li>
               </ul>
             </a>
           </div>
@@ -91,14 +92,13 @@ onMounted(async () => {
             <p>Popular Tags</p>
 
             <div class="tag-list">
-              <a href="" class="tag-pill tag-default">programming</a>
-              <a href="" class="tag-pill tag-default">javascript</a>
-              <a href="" class="tag-pill tag-default">emberjs</a>
-              <a href="" class="tag-pill tag-default">angularjs</a>
-              <a href="" class="tag-pill tag-default">react</a>
-              <a href="" class="tag-pill tag-default">mean</a>
-              <a href="" class="tag-pill tag-default">node</a>
-              <a href="" class="tag-pill tag-default">rails</a>
+              <a
+                v-for="tag in tags?.tags"
+                :key="tag"
+                href=""
+                class="tag-pill tag-default"
+                >{{ tag }}</a
+              >
             </div>
           </div>
         </div>
