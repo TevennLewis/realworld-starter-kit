@@ -25,29 +25,27 @@ onMounted(async () => {
   <div v-if="article" class="article-page">
     <div class="banner">
       <div v-if="article" class="container">
-        <h1>{{ article.article.title }}</h1>
+        <h1>{{ article.title }}</h1>
 
         <div class="article-meta">
-          <a href="/profile/eric-simons"
-            ><img :src="article.article.author.image"
-          /></a>
+          <a href="/profile/eric-simons"><img :src="article.author.image" /></a>
           <div class="info">
             <a href="/profile/eric-simons" class="author">{{
-              article.article.author.username
+              article.author.username
             }}</a>
             <span class="date">{{
-              new Date(article.article.createdAt).toDateString()
+              new Date(article.createdAt).toDateString()
             }}</span>
           </div>
           <button class="btn btn-sm btn-outline-secondary">
             <i class="ion-plus-round"></i>
-            &nbsp; Follow {{ article.article.author.username }}
+            &nbsp; Follow {{ article.author.username }}
           </button>
           &nbsp;&nbsp;
           <button class="btn btn-sm btn-outline-primary">
             <i class="ion-heart"></i>
             &nbsp; Favorite Post
-            <span class="counter">({{ article.article.favoritesCount }})</span>
+            <span class="counter">({{ article.favoritesCount }})</span>
           </button>
           <button class="btn btn-sm btn-outline-secondary">
             <i class="ion-edit"></i> Edit Article
@@ -62,11 +60,11 @@ onMounted(async () => {
     <div class="container page">
       <div class="row article-content">
         <div class="col-md-12">
-          <h2 id="introducing-ionic">{{ article.article.description }}</h2>
-          <p>{{ article.article.body }}</p>
+          <h2 id="introducing-ionic">{{ article.description }}</h2>
+          <p>{{ article.body }}</p>
           <ul class="tag-list">
             <li
-              v-for="tag in article.article.tagList"
+              v-for="tag in article.tagList"
               :key="tag"
               class="tag-default tag-pill tag-outline"
             >
@@ -80,23 +78,23 @@ onMounted(async () => {
 
       <div class="article-actions">
         <div class="article-meta">
-          <a href="profile.html"><img :src="article.article.author.image" /></a>
+          <a href="profile.html"><img :src="article.author.image" /></a>
           <div class="info">
-            <a href="" class="author">{{ article.article.author.username }}</a>
+            <a href="" class="author">{{ article.author.username }}</a>
             <span class="date">{{
-              new Date(article.article.createdAt).toDateString()
+              new Date(article.createdAt).toDateString()
             }}</span>
           </div>
 
           <button class="btn btn-sm btn-outline-secondary">
             <i class="ion-plus-round"></i>
-            &nbsp; Follow {{ article.article.author.username }}
+            &nbsp; Follow {{ article.author.username }}
           </button>
           &nbsp;
           <button class="btn btn-sm btn-outline-primary">
             <i class="ion-heart"></i>
             &nbsp; Favorite Article
-            <span class="counter">({{ article.article.favoritesCount }})</span>
+            <span class="counter">({{ article.favoritesCount }})</span>
           </button>
           <button class="btn btn-sm btn-outline-secondary">
             <i class="ion-edit"></i> Edit Article
@@ -126,50 +124,25 @@ onMounted(async () => {
             </div>
           </form>
 
-          <div class="card">
-            <div class="card-block">
-              <p class="card-text">
-                With supporting text below as a natural lead-in to additional
-                content.
-              </p>
-            </div>
-            <div class="card-footer">
-              <a href="/profile/author" class="comment-author">
-                <img
-                  src="http://i.imgur.com/Qr71crq.jpg"
-                  class="comment-author-img"
-                />
-              </a>
-              &nbsp;
-              <a href="/profile/jacob-schmidt" class="comment-author"
-                >Jacob Schmidt</a
-              >
-              <span class="date-posted">Dec 29th</span>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-block">
-              <p class="card-text">
-                With supporting text below as a natural lead-in to additional
-                content.
-              </p>
-            </div>
-            <div class="card-footer">
-              <a href="/profile/author" class="comment-author">
-                <img
-                  src="http://i.imgur.com/Qr71crq.jpg"
-                  class="comment-author-img"
-                />
-              </a>
-              &nbsp;
-              <a href="/profile/jacob-schmidt" class="comment-author"
-                >Jacob Schmidt</a
-              >
-              <span class="date-posted">Dec 29th</span>
-              <span class="mod-options">
-                <i class="ion-trash-a"></i>
-              </span>
+          <div v-if="comments?.length > 0">
+            <div v-for="comment in comments" :key="comment.id" class="card">
+              <div class="card-block">
+                <p class="card-text">
+                  {{ comment.body }}
+                </p>
+              </div>
+              <div class="card-footer">
+                <a href="/profile/author" class="comment-author">
+                  <img :src="comment.author.image" class="comment-author-img" />
+                </a>
+                &nbsp;
+                <a href="/profile/jacob-schmidt" class="comment-author"
+                  >{{ comment.author.username }}t</a
+                >
+                <span class="date-posted">{{
+                  new Date(comment.createdAt).toDateString()
+                }}</span>
+              </div>
             </div>
           </div>
         </div>

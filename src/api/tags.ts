@@ -12,7 +12,9 @@ class TagsApi {
           "Content-Type": "application/json",
         },
       });
-      return response.json();
+      const data = await response.json();
+      const { tags } = data;
+      return tags;
     } catch (error: unknown) {
       console.log(error);
     }

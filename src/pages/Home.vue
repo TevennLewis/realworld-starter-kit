@@ -9,7 +9,7 @@ const articlesApi = new ArticlesApi();
 const tagsApi = new TagsApi();
 
 onMounted(async () => {
-  articles.value = await articlesApi.fetchArticles();
+  articles.value = await articlesApi.fetchArticles("?offset=10");
   tags.value = await tagsApi.fetchTags();
   console.log(tags.value.tags);
 });
@@ -38,7 +38,7 @@ onMounted(async () => {
           </div>
 
           <div
-            v-for="article in articles?.articles"
+            v-for="article in articles"
             :key="article"
             class="article-preview"
           >
@@ -93,7 +93,7 @@ onMounted(async () => {
 
             <div class="tag-list">
               <a
-                v-for="tag in tags?.tags"
+                v-for="tag in tags"
                 :key="tag"
                 href=""
                 class="tag-pill tag-default"

@@ -4,15 +4,19 @@ class ArticlesApi {
     this.baseURL = "https://api.realworld.io/api";
   }
 
-  async fetchArticles() {
+  async fetchArticles(query?: string) {
+    let articles;
     try {
-      const response = await fetch(`${this.baseURL}/articles`, {
+      const response = await fetch(`${this.baseURL}/articles${query ?? ""}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
       });
-      return response.json();
+      const data = await response.json();
+      const { articles } = data;
+      console.log(data);
+      return articles;
     } catch (error: unknown) {
       console.log(error);
     }
@@ -26,7 +30,9 @@ class ArticlesApi {
           "Content-Type": "application/json",
         },
       });
-      return response.json();
+      const data = await response.json();
+      const { article } = data;
+      return article;
     } catch (error: unknown) {
       console.log(error);
     }
@@ -43,7 +49,9 @@ class ArticlesApi {
           },
         }
       );
-      return response.json();
+      const data = await response.json();
+      const { comments } = data;
+      return comments;
     } catch (error: unknown) {
       console.log(error);
     }
